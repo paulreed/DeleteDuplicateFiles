@@ -1,5 +1,6 @@
 /*
- */
+
+*/
 package deleteduplicatefiles;
 
 import java.io.File;

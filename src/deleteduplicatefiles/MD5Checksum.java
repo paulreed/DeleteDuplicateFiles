@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package deleteduplicatefiles;
 
 import java.io.*;
 import java.security.MessageDigest;
 
 public class MD5Checksum {
-
    public static byte[] createChecksum(String filename) throws Exception {
        InputStream fis =  new FileInputStream(filename);
 

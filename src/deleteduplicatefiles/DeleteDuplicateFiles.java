@@ -12,28 +12,44 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- *
- * @author e1049172
  */
 public class DeleteDuplicateFiles {
     long maxFileSizeInBytes = 1024 * 1024 * 1024;
     
     // Set to skip hidden files
-    boolean skipHidden = true;
-    
+    private boolean skipHidden = true;
+
     //List<String> rootPaths = new ArrayList();
-    String rootPath = null;
+    private String rootPath = null;
     
-    List<File> skipPaths = new ArrayList();
+    private List<File> skipPaths = new ArrayList();
     
     // Map from unique key to the list of things that have that uniue key (ie. MD5->[File])
-    HashMap<String,List<Thing>> things = new HashMap();
+    private HashMap<String,List<Thing>> things = new HashMap();
+ 
     
     public DeleteDuplicateFiles(String path) {
         this.rootPath = path;
     }
 
       
+    public void addSkipFolder(String path) {
+        File file = new File(path);
+        //TODO: check is a directory and it exists!
+        skipPaths.add(file);
+    }
+    
+    
+    public void setSkipHidden(boolean skipHidden) {
+        this.skipHidden = skipHidden;
+    }
+    
+
+    public void walk() {
+        walk(false);
+    }
+
+    
     public void walk(boolean skipFilesInRoot) {
         System.out.println("Walking " + rootPath);
         long numFiles = walk(new File(rootPath), skipFilesInRoot, 0);
@@ -93,13 +109,6 @@ public class DeleteDuplicateFiles {
         }
 
         return totalFiles + numFiles;
-    }
-    
-    
-    public void addSkipFolder(String path) {
-        File file = new File(path);
-        //TODO: check is a directory and it exists!
-        skipPaths.add(file);
     }
     
     
